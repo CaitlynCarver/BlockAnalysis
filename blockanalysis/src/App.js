@@ -1,19 +1,34 @@
 import './App.css';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-import React, { useState } from "react"
-import Web3 from web3
+import React, { useState } from "react";
+import { ethers } from "ethers";
+
 
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 
 
+
 function App() {
+  
   const [fname, setFname] = useState("")
 
   const handleChange = e => {
     setFname(e.target.value)
   }
+
+  const network = "mainnet";
+
+  const provider = new ethers.providers.InfuraProvider(network, {
+    projectId: "234917530f0240f3ac505c80223474e3",
+    projectSecret: "78fbac48939044f4834ed277b2a2e4b5"
+  });
+
+
+  let block = provider.on("block", {
+
+  });
 
   return (
     <div className="App">
@@ -51,6 +66,7 @@ function App() {
           </label>
         </form>
         <h5>Crypto Address: {fname}</h5>
+        <h5>block: {block.number}</h5>
       </header>
       </div>
 
